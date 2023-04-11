@@ -1,0 +1,9 @@
+GET http://localhost:5500/reqUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODAwOTc2NTgsImV4cCI6MTY4MDA5NzcxOH0.9_UmxeksKqe2gV8KQtfMiIekyh76rASSqMrlO3027Xc
+###
+POST http://localhost:5500/login
+
+Content-Type: application/json
+{
+    "username" : "dfast11"
+}

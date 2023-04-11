@@ -1,0 +1,27 @@
+GET http://localhost:5500/reqUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjgwNTE3MTI1LCJleHAiOjE2ODA1MTcxNTV9.u1AiJfV10Ox7h0wPFY8ea75ZXn4OuWS2HPsWyBkDhSQ
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+   "email":"dfast17052003@gmail.com"
+}
+
+###
+POST http://localhost:5000/refresh
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImFhNTY3ZDU3Mzg5NTUzYzU5ZGZkMTlmZjQ5NWViOTUwYThkNjg4ZjQ1NDVjMGM1YmZiZDcxODU2ZTI1YWI5NTBmMGI0ZDM0MzY0YzQyNjdmNDhhY2JjM2NmNzFiY2ZlYmRjMWMxYzgyOTVlOTUwYzkyMGU4YmY0ODZkNmM1ZTY2IiwiaWF0IjoxNjgwMTUzODcxLCJleHAiOjE2ODA1ODU4NzF9.2A8oDfmWU8M86sg1-sOIDUGQ-afs_egAPzBZ7JI4yQ0"
+}
+
+### 
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "username" : "usernamedemo4",
+    "password": "passworddemo4"
+}

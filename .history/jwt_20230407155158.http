@@ -1,0 +1,43 @@
+GET http://localhost:5500/reqUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwODQ1NjA4LCJleHAiOjE2ODA4NDU2Mzh9.mkU2PPPDIFLbqnpWo5TgojoXLzTYxHUZ7AbH-qT_JLQ
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+   "username" : "usernamedemo2",
+    "password": "passworddemo2"
+}
+
+###
+POST http://localhost:5500/changeUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwODU3NDgyLCJleHAiOjE2ODA4NTc1MTJ9._uLOVXfVBnF3L4oz71XqWPy36iM9oxBMUQQOZ4nJOEw
+Content-Type: application/json
+
+{
+   "fullName":"dfast17",
+   "phone":"012345678",
+   "email":"dfast177@gmail.com",
+   "address":"Da Nang city",
+   "purchaseOrder":[],
+   "listCart":[]
+}
+
+###
+POST http://localhost:5000/refresh
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6Ijk3ZDY2Y2ZkNjQxMzM2NmJjY2Q4NjBiYWRmYTE5NjNhMTU5NmRjZTQyZGQ1ZWZiMTRiOGQwMzBlYzUwZDhhNmEzMWM2MDBhOTAxMjNhODc1ODA3ZDliNTE2NzA4ZDc0ODM1ZGU4NzgyMjY4NmI4MjU1ZGE5YTU3YzcwMGNjNWQ5IiwiaWF0IjoxNjgwNjU5MzgwLCJleHAiOjE2ODEwOTEzODB9.muTp6CZFMebMM2KXLtGZl5eogLh2b6tNHbwl_77lQhs"
+}
+
+### 
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "username" : "usernamedemo3",
+    "password": "passworddemo3"
+}
+

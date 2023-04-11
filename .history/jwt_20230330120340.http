@@ -1,0 +1,19 @@
+GET http://localhost:5500/reqUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwMTUyNTg1LCJleHAiOjE2ODAxNTI2MTV9.alEq9oN_klxxFlaStyeeVL4p4ZiTxgPVnhvOHKcu65A
+###
+POST http://localhost:5500/login
+Content-Type: application/json
+
+{
+    "username" : "usernamedemo1",
+    "password": "passworddemo1"
+}
+
+###
+
+POST http://localhost:5500/refresh
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjFjZDkwNTcxOTJlOTcyYjQ2Nzc5NGQ0MDQ3YTBiZTg4NjE4MGM0NDc5MDA1OGM2OGM3YjQ3N2Y0NWYyOGU4ZTFhNjQ4NDAwNDI1ZDVmZjBiMzkyMzFkMjQyNTM4OWYyZGE2NzM3OWQzMDI5NjJkNjA3MjU2NjM3ODc2YmViZjMwIiwiaWF0IjoxNjgwMTUyNTYzLCJleHAiOjE2ODA1ODQ1NjN9.VCJXestI4UYmdhWzu1zMrOIx-LbbFtU2azclxaS1ydY"
+}

@@ -1,0 +1,19 @@
+GET http://localhost:5500/reqUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODAxNTE4OTMsImV4cCI6MTY4MDE1MTkyM30.PeUim5gujV7PL9wjYCt9gaKeg2ymdHn-nMnL4PnvbCU
+###
+POST http://localhost:5500/login
+Content-Type: application/json
+
+{
+    "username" : "usernamedemo1",
+    "password": "passworddemo1"
+}
+
+###
+
+POST http://localhost:5500/refresh
+Content-Type: application/json
+
+{
+    refresh
+}
