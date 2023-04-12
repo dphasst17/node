@@ -2,7 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import crypto from "crypto";
-import cors from "cors"
+import 
 import {result,length,addNew,addNewSecond,updateRefresh,insertData} from "./db.js";
 
 dotenv.config();
@@ -10,7 +10,6 @@ const app = express();
 const PORT = 5000;
 const randomString = crypto.randomBytes(64).toString("hex");
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
 
 
 
