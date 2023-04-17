@@ -6,7 +6,7 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "fullName":"Dinh Phat",
+    "fullName":"Dinh Phat"
     "email": "dfast017@gmail.com"
 }
 

@@ -1,0 +1,42 @@
+GET http://localhost:5500/reqUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwODQ1NjA4LCJleHAiOjE2ODA4NDU2Mzh9.mkU2PPPDIFLbqnpWo5TgojoXLzTYxHUZ7AbH-qT_JLQ
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+   "username" : "usernamedemo2",
+    "password": "passworddemo2"
+}
+
+###
+POST http://localhost:5500/changeUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwODU4MDY0LCJleHAiOjE2ODA4NTgwOTR9.yLH7XWNP27JW4WavNeZFOeUy6PpN_k8CfLz5Ol4S8Ms
+Content-Type: application/json
+
+{
+   "phone":"123456789"
+}
+
+###
+POST http://localhost:5000/refresh
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgxMzgzNjcxLCJleHAiOjE2ODEzODM3MDF9.Cm2kksQALEEJNTo5e3rwHiWhUD6G8SLGDOTMUrsLRzM
+
+###
+POST http://localhost:5000/refresh
+Content-Type: application/json
+
+{
+    "refreshToken":"eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImVhOTY2NzhjYjMzN2FlMmNhZWU2ZjEwMTkxODNiYzY2MjFiNGZlOTFkZmZkOTcxNGVkMDY3YzU4MzE0MDc0OTdjZjc1ZjNkODQ1N2NkODIxZmZhMGJmZTI3ZGNkOWQ2MTEwNmJkM2Y3YmUxNDgxZTVhNzYwOWFlOTI3YzY3ZTJkIiwiaWF0IjoxNjgxMzgzNjcxLCJleHAiOjE2ODE4MTU2NzF9.wKcnfneIa9C-UfNcFJy0P1PlPAlRhnK8uqZyfKFKdmo"
+}
+
+### 
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "username" : "usernamedemo3",
+    "password": "passworddemo3"
+}
+

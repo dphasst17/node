@@ -81,7 +81,7 @@ app.post("/login", (req, res) => {
           { expiresIn: "5d" }),
       };
       let newUser = {
-        fullName: data.fullName,
+        fullName: "",
         phone: "",
         email: data.email,
         address: "",
@@ -115,7 +115,7 @@ app.post("/login", (req, res) => {
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: "5d" }
   );
-
+  res.cookie('refreshTokenCookie', refreshToken, { httpOnly: true })
   res.status(200).json({ accessToken, refreshToken });
   const filter = {id:user.id};
   const updateDoc = {
@@ -131,6 +131,7 @@ app.post("/login", (req, res) => {
 
 // Xu ly token
 app.post("/refresh", (req, res) => {
+  const accessToken = req.headers.authorization.split(' ')[1];
   const refreshToken = req.body.refreshToken;
   const user = result.find((user) => user.refreshToken === refreshToken);
 

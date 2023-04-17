@@ -6,9 +6,12 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "fullName":"Dinh Phat",
-    "email": "dfast017@gmail.com"
+   "username" : "usernamedemo2",
+    "password": "passworddemo2"
 }
+###
+POST http://localhost:5000/refresh
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgxMzg1MTExLCJleHAiOjE2ODEzODUxNDF9.a-qka3so_BESwDAjJTQ_tHWpoKYXq08W923wnoW6Z5Y
 
 ###
 POST http://localhost:5500/changeUser
@@ -24,7 +27,7 @@ POST http://localhost:5000/refresh
 Content-Type: application/json
 
 {
-    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjNlNjQ5ODYxOGM0YWNkZDgzZTljZjFlZDZmYTcyNTMyMjRlMTQzMTliMjk2MWU3MDVkMTFlZmIyMzgyNzQ5MDYzN2JlNGYxNDQwOTk2ZjVlYmE3MDM3MDM2NDY3OTQ2ZmZmMjIxNThhODkyNzBiNjA1ZWY2MDVjNmY0Yjk4ZTc0IiwiaWF0IjoxNjgxNTQ4NzgzLCJleHAiOjE2ODE5ODA3ODN9.4-lS2t_RzFyUurYKJktG7hXY2eWhQp_LTYE_7qrRgUk"
+    "refreshToken":"eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImVhOTY2NzhjYjMzN2FlMmNhZWU2ZjEwMTkxODNiYzY2MjFiNGZlOTFkZmZkOTcxNGVkMDY3YzU4MzE0MDc0OTdjZjc1ZjNkODQ1N2NkODIxZmZhMGJmZTI3ZGNkOWQ2MTEwNmJkM2Y3YmUxNDgxZTVhNzYwOWFlOTI3YzY3ZTJkIiwiaWF0IjoxNjgxMzgzNjcxLCJleHAiOjE2ODE4MTU2NzF9.wKcnfneIa9C-UfNcFJy0P1PlPAlRhnK8uqZyfKFKdmo"
 }
 
 ### 

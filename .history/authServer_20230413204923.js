@@ -81,7 +81,7 @@ app.post("/login", (req, res) => {
           { expiresIn: "5d" }),
       };
       let newUser = {
-        fullName: data.fullName,
+        fullName: "",
         phone: "",
         email: data.email,
         address: "",
@@ -131,7 +131,24 @@ app.post("/login", (req, res) => {
 
 // Xu ly token
 app.post("/refresh", (req, res) => {
-  const refreshToken = req.body.refreshToken;
+  const authorizationHeader = req.headers["authorization"];
+  if (!authorizationHeader) return res.sendStatus(401);
+  const token = authorizationHeader.split(" ")[1];
+  if (!token) res.sendStatus(401);
+  
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET,{ ignoreExpiration: true });
+    const userId = decoded.id;
+    
+    const user = result.find(us => us.id === userId)
+    console.log(user)
+    // handle decoded token here
+  } catch (error) {
+    // handle error here
+  }
+  
+  
+  /* const refreshToken = req.body.refreshToken;
   const user = result.find((user) => user.refreshToken === refreshToken);
 
   if (user) {
@@ -146,7 +163,7 @@ app.post("/refresh", (req, res) => {
     res.json({ newAccessToken });
   } else {
     res.status(401).json({ message: "Invalid refresh token" });
-  }
+  } */
 });
 
 app.listen(PORT, () => {

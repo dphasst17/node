@@ -81,7 +81,7 @@ app.post("/login", (req, res) => {
           { expiresIn: "5d" }),
       };
       let newUser = {
-        fullName: data.fullName,
+        fullName: "",
         phone: "",
         email: data.email,
         address: "",
