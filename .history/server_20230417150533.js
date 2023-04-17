@@ -24,7 +24,7 @@ app.get("/requser", authenticationToken, (req, res) => {
 
 // Cap nhat thong tin nguoi dung
 
-app.post("/changeuser",authenticationToken,(req,res) =>{
+app.post("/changeUser",authenticationToken,(req,res) =>{
   const userId = req.userId;
   const data = req.body;
 
