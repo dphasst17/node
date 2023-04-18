@@ -38,8 +38,8 @@ app.post("/changeuser", authenticationToken, (req, res) => {
       // Wait for a short time before returning the new data
       
       setTimeout(() => {
-        res.status(200).json(dataUs.find((user) => user.id === userId))
-        
+        res.status(200).send(dataUs.find((user) => user.id === userId)),
+        res.json({newData:dataUs.find((user) => user.id === userId)})
       }, 1000);
     })
     .catch((err) => {
