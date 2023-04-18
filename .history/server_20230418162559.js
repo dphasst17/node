@@ -34,7 +34,7 @@ app.post("/changeuser", authenticationToken, (req, res) => {
   }
   const updateUser = { $set: data }
   changeUser(filter, updateUser)
-    .then(() => {
+    .then(async () => {
       // Wait for a short time before returning the new data
       
       setTimeout(() => {

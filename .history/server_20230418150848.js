@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import cors from "cors"
 import crypto from "crypto";
-import {resultUs,changeUser,result,length,addNew,addNewSecond,updateRefresh,insertData,dataUs,getData} from "./db.js";
+import {resultUs,changeUser,result,length,addNew,addNewSecond,updateRefresh,insertData,getData} from "./db.js";
 
 
 dotenv.config();
@@ -34,12 +34,9 @@ app.post("/changeuser", authenticationToken, (req, res) => {
   }
   const updateUser = { $set: data }
   changeUser(filter, updateUser)
-    .then(() => {
-      // Wait for a short time before returning the new data
-      
-      setTimeout(() => {
-        res.status(200).send(dataUs.find((user) => user.id === userId));
-      }, 1000);
+    .then((updatedUser) => {
+      // Trả về dữ liệu mới nhất của người dùng
+      res.status(200).send(updatedUser);
     })
     .catch((err) => {
       console.log(err);

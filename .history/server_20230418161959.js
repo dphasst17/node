@@ -36,7 +36,6 @@ app.post("/changeuser", authenticationToken, (req, res) => {
   changeUser(filter, updateUser)
     .then(() => {
       // Wait for a short time before returning the new data
-      
       setTimeout(() => {
         res.status(200).send(dataUs.find((user) => user.id === userId));
       }, 1000);

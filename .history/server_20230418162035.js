@@ -34,11 +34,11 @@ app.post("/changeuser", authenticationToken, (req, res) => {
   }
   const updateUser = { $set: data }
   changeUser(filter, updateUser)
-    .then(() => {
+    .then(async () => {
       // Wait for a short time before returning the new data
-      
+      let newData = await getData(query);
       setTimeout(() => {
-        res.status(200).send(dataUs.find((user) => user.id === userId));
+        res.status(200).send(newData.find((user) => user.id === userId));
       }, 1000);
     })
     .catch((err) => {

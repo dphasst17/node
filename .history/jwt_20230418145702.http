@@ -1,0 +1,28 @@
+GET http://localhost:5500/reqUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgxODA0NTY5LCJleHAiOjE2ODE4MDUxNjl9.DrFnpNM-jnIQ36oCjg5-BNPPURpN3bLbdTsEkLQj9HU
+
+###
+
+POST http://localhost:5500/login
+Content-Type: application/json
+
+{
+   "username":"usernamedemo1",
+   "password":"passworddemo1"
+}
+###
+POST http://localhost:5500/changeUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgxODA0NTY5LCJleHAiOjE2ODE4MDUxNjl9.DrFnpNM-jnIQ36oCjg5-BNPPURpN3bLbdTsEkLQj9HU
+Content-Type: application/json
+
+{
+   "fullName":"Phat"
+}
+
+###
+POST http://localhost:5500/refresh
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6Ijk5M2E2ZjA3NjMzYmE1ODc0MGY2ZTljODYxZDViNWZiNDUwMDAzODQ4NGMzMTE0YzQyN2JlNjNiNWE4NzUyNDQwNzBlOWRjOGY3YWFlM2FjYTJjNzlmNzU0NzcwMGFkNjRhZjBkODVmZGE3ZDc0ODk4NGRjZWYzODNjMTM3ZjRiIiwiaWF0IjoxNjgxNzg4MzM3LCJleHAiOjE2ODIyMjAzMzd9.xwCasvYQZI-OOrKpZ-8XGefug6I_pfTkpCpOTaS5e3o"
+}

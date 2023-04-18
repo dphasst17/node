@@ -67,17 +67,16 @@ export async function newData() {
     changeStream.on('change', async (change) => {
         // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
         dataUs = await getData(query);
-        
-        return dataUs;
+        console.log("New: ",dataUs)
       });
-    
+    return dataUs;
   } catch (err) {
     console.error(err);
   }
   
   return {dataUs};
 }
-console.log("New: ",dataUs)
+
 newData();
 
 export {dataUs};

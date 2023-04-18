@@ -37,6 +37,7 @@ export async function changeDataLogin() {
         // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
         result = await getDataLogin(query);
         resultUs = await getData(query);
+        
         length = result.length;
       });
     
@@ -50,37 +51,28 @@ changeDataLogin();
 
 export { result, resultUs, length };
 
-
-let dataUs;
-
-
-export async function newData() {
-  try {
-    const database = client.db('User');
-    const collection = database.collection('userInf');
-    let query = {};
-    // Lấy kết quả của hàm getDataLogin khi khởi động server
-    dataUs = await getData(query);
-    console.log("Old: ",dataUs)
-    // Sử dụng phương thức watch để theo dõi thay đổi trong bộ sưu tập
-    const changeStream = collection.watch();
-    changeStream.on('change', async (change) => {
-        // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
-        dataUs = await getData(query);
+let newData;
+export async function changeData() {
+    try{
+        const database = client.db('User');
+        const collection = database.collection('userInf');
+        newData = await getData(query);
+        console.log(newData)
+        const changeStream = collection.watch();
+        changeStream.on('change', async (change) => {
+            // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
+            
+            newData = await getData(query);
+            console.log("New: ".newData)
+            
+          });
         
-        return dataUs;
-      });
-    
-  } catch (err) {
-    console.error(err);
-  }
-  
-  return {dataUs};
+    }catch(err){
+        console.log(err)
+    }
+    return {newData};
 }
-console.log("New: ",dataUs)
-newData();
-
-export {dataUs};
+export { newData };
 
 
 export async function getData(query) {
