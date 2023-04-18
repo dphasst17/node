@@ -102,7 +102,7 @@ app.post("/register", (req, res) => {
     const accessToken = jwt.sign(
       { id: length + 1},
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "600s" }
+      { expiresIn: "30s" }
     );
     res.status(201).json({ accessToken, refreshToken });
   }
@@ -155,7 +155,7 @@ app.post("/login", (req, res) => {
     { id:(user.id) ? user.id : length + 1},
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "600s",
+      expiresIn: "10m",
     }
   );
   const refreshToken = jwt.sign(
@@ -188,7 +188,7 @@ app.post("/refresh", (req, res) => {
       { id: user.id },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "600s",
+        expiresIn: "30s",
       }
     );
     res.json({ newAccessToken });
