@@ -34,13 +34,7 @@ app.post("/changeuser",authenticationToken,(req,res) =>{
   } 
   const updateUser = {$set:data}
   changeUser(filter,updateUser)
-  .then(() => {
-    res.status(200).send('Update successful');
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).send('An error occurred');
-  });
+  console.log(data)
 })
 
 
