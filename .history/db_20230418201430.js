@@ -53,6 +53,7 @@ export { result, resultUs, length };
 
 let dataUs;
 
+
 export async function newData() {
   try {
     const database = client.db('User');
@@ -75,7 +76,7 @@ export async function newData() {
   
   return {dataUs};
 }
-await newData();
+newData();
 
 export {dataUs};
 

@@ -75,7 +75,7 @@ export async function newData() {
   
   return {dataUs};
 }
-await newData();
+newData();
 
 export {dataUs};
 
