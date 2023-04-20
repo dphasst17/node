@@ -1,0 +1,27 @@
+GET http://localhost:5500/reqUser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgxOTc2NDM0LCJleHAiOjE2ODE5NzcwMzR9.Z-AJU13TK265jC-BDj7ImwQe9esaOz-KPQpwJmm1euA
+
+###
+
+POST http://localhost:5500/login
+Content-Type: application/json
+
+{
+   "email":"phathuu123@gmail.com"
+}
+###
+POST http://localhost:5500/changeuser
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgxODEwMDQ0LCJleHAiOjE2ODE4MTA2NDR9.Daq9bHKzfcu4e8taEwlXLj9yd35SA9uEjDEvYxAAJAg
+Content-Type: application/json
+
+{
+   "fullName":""
+}
+
+###
+POST http://localhost:5500/refresh
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgxODA0ODUxLCJleHAiOjE2ODE4MDU0NTF9.pFXmz8MUictpynz-dwa_TLVAfFZTQVbfuOuHTrvQ3ck"
+}
