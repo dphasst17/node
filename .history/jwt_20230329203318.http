@@ -1,9 +1,0 @@
-GET http://localhost:5500/reqUser
-Authorization: 
-###
-POST http://localhost:5500/login
-
-{
-    "username":"dfast11",
-    "password": "dfast17052003"
-}

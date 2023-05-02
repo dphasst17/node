@@ -100,6 +100,7 @@ app.post("/register", (req, res) => {
     };
     let query = {username:username, password:password};
     let updateLogin = {$set: newUserLogin};
+    /* let updateUser = {$set: newUser}; */
     let options = {upsert: true};
     addNew(query,updateLogin,options);
     insertData(newUser)

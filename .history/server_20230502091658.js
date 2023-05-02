@@ -99,9 +99,12 @@ app.post("/register", (req, res) => {
       purchaseOrder:[],listCart:[]
     };
     let query = {username:username, password:password};
+    /* let querySecond={fullName:""}; */
     let updateLogin = {$set: newUserLogin};
+    /* let updateUser = {$set: newUser}; */
     let options = {upsert: true};
     addNew(query,updateLogin,options);
+    /* addNewSecond(querySecond,updateUser,options); */
     insertData(newUser)
     
     const accessToken = jwt.sign(
