@@ -141,9 +141,10 @@ export async function changeUser(filter, updateUser) {
 
 export async function addNew(query,update,option){
     try{
-        /* const database = client.db('User');
+       /*  const database = client.db('User');
         const collection = database.collection('userLogin');
-        await collection.updateOne(query, update, option); */
+        await collection.updateOne(query, update, option);
+ */
         const database = client.db('User');
         const collection = database.collection('userLogin');
         await collection.updateOne(
