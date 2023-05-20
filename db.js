@@ -141,20 +141,10 @@ export async function changeUser(filter, updateUser) {
 
 export async function addNew(query,update,option){
     try{
-        /* const database = client.db('User');
-        const collection = database.collection('userLogin');
-        await collection.updateOne(query, update, option); */
         const database = client.db('User');
         const collection = database.collection('userLogin');
-        await collection.updateOne(
-            query, update, option,
-        {
-            writeConcern: {
-            w: 'majority',
-            wtimeout: 1000,
-            },
-        }
-        );
+        await collection.updateOne(query, update, option);
+        
     }catch (err){
         console.log(err)
     }
