@@ -31,7 +31,6 @@ app.get("/requser", authenticationToken, (req, res) => {
 app.post("/changeuser", authenticationToken, (req, res) => {
   const userId = req.userId;
   const data = req.body;
-
   const filter = {
     id: userId
   }
@@ -39,10 +38,8 @@ app.post("/changeuser", authenticationToken, (req, res) => {
   changeUser(filter, updateUser)
     .then(() => {
       // Wait for a short time before returning the new data
-      
       setTimeout(() => {
         res.status(200).json(dataUs.find((user) => user.id === userId))
-        
       }, 1000);
     })
     .catch((err) => {
@@ -101,8 +98,8 @@ app.post("/register", (req, res) => {
     let query = {username:username, password:password};
     let updateLogin = {$set: newUserLogin};
     let options = {upsert: true};
-    addNew(query,updateLogin,options);
-    insertData(newUser)
+    addNew(query,updateLogin,options).catch(err => console.log(err));
+    insertData(newUser).catch(err => console.log(err))
     
     const accessToken = jwt.sign(
       { id: length + 1},
@@ -145,8 +142,8 @@ app.post("/login", (req, res) => {
       let updateLogin = {$set: newUserLogin};
       let updateUser = {$set: newUser};
       let options = {upsert: true};
-      addNew(query,updateLogin,options);
-      addNewSecond(query,updateUser,options);
+      addNew(query,updateLogin,options).catch(err => console.log(err));
+      addNewSecond(query,updateUser,options).catch(err => console.log(err));
       user = newUserLogin;  
     }else{
       user = users
@@ -176,7 +173,7 @@ app.post("/login", (req, res) => {
       refreshToken: refreshToken,
     },
   };
-  updateRefresh(filter,updateDoc)
+  updateRefresh(filter,updateDoc).catch(err => console.log(err))
 
 });
 

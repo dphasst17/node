@@ -6,83 +6,89 @@ dotenv.config();
 
 const uri = `mongodb+srv://${process.env.USER_QL}:${process.env.PAS_QL}@tech.of4l8iy.mongodb.net/?retryWrites=true&w=majority`;
 export const client = new MongoClient(uri);
+
+async function run(){
+    try{
+        await client.connect();
+        console.log("Connected to MongoDB Atlas");
+    }catch (err) {
+        console.error(err);
+    }
+}
+run();
+
+
 let result;
 let resultUs;
 let length;
-let dataUs;
-
-async function run() {
-    try {
-        await client.connect();
-        console.log("Connected to MongoDB Atlas");
-    } catch (err) {
-        console.error(err);
-    }
-}
-run().catch(err => console.log(err));
-
 
 export async function changeDataLogin() {
-    try {
-        const database = client.db('User');
-        const collection = database.collection('userLogin');
-        let query = {};
-        // Lấy kết quả của hàm getDataLogin khi khởi động server
+  try {
+    const database = client.db('User');
+    const collection = database.collection('userLogin');
+    let query = {};
+    // Lấy kết quả của hàm getDataLogin khi khởi động server
+    result = await getDataLogin(query);
+    resultUs = await getData(query);
+    length = result.length;
+    // Sử dụng phương thức watch để theo dõi thay đổi trong bộ sưu tập
+    const changeStream = collection.watch();
+    changeStream.on('change', async (change) => {
+        // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
         result = await getDataLogin(query);
         resultUs = await getData(query);
         length = result.length;
-        // Sử dụng phương thức watch để theo dõi thay đổi trong bộ sưu tập
-        const changeStream = collection.watch();
-        changeStream.on('change', async (change) => {
-            // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
-            result = await getDataLogin(query);
-            resultUs = await getData(query);
-            length = result.length;
-        });
-
-    } catch (err) {
-        console.error(err);
-    }
-
-    return { result, resultUs, length };
+      });
+    
+  } catch (err) {
+    console.error(err);
+  }
+  
+  return { result, resultUs, length };
 }
-changeDataLogin().catch(err => console.log(err));
+changeDataLogin();
 
 export { result, resultUs, length };
 
 
-
+let dataUs;
 
 export async function newData() {
-    try {
-        const database = client.db('User');
-        const collection = database.collection('userInf');
-        let query = {};
-        // Lấy kết quả của hàm getDataLogin khi khởi động server
+  try {
+    const database = client.db('User');
+    const collection = database.collection('userInf');
+    let query = {};
+    // Lấy kết quả của hàm getDataLogin khi khởi động server
+    dataUs = await getData(query);
+    // Sử dụng phương thức watch để theo dõi thay đổi trong bộ sưu tập
+    const changeStream = collection.watch();
+    changeStream.on('change', async (change) => {
+        // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
         dataUs = await getData(query);
-        // Sử dụng phương thức watch để theo dõi thay đổi trong bộ sưu tập
-        const changeStream = collection.watch();
-        changeStream.on('change', async (change) => {
-            // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
-            dataUs = await getData(query);
-            return dataUs;
-        });
-    } catch (err) {
-        console.error(err);
-    }
-    return { dataUs };
+        
+        return dataUs;
+      });
+    
+  } catch (err) {
+    console.error(err);
+  }
+  
+  return {dataUs};
 }
-await newData().catch(err => console.log(err));
-export { dataUs };
+await newData();
+
+export {dataUs};
 
 
 export async function getData(query) {
     try {
         const database = client.db('User');
         const collection = database.collection('userInf');
+
         const data = await collection.find(query).toArray();
         return data
-    } catch (err) { console.log(err) }
+        
+    } catch (err) {console.log(err) }
 };
 export async function getDataLogin(query) {
     try {
@@ -91,7 +97,7 @@ export async function getDataLogin(query) {
 
         const data = await collection.find(query).toArray();
         return data;
-    } catch (err) { console.log(err) }
+    } catch (err) {console.log(err) }
 };
 
 
@@ -99,6 +105,7 @@ export async function updateData(filter, updateDoc) {
     try {
         const database = client.db('User');
         const collection = database.collection('userInf');
+
         // update data or add new user
         await collection.updateOne(filter, updateDoc);
     } catch (err) { console.log(err) }
@@ -109,6 +116,7 @@ export async function updateRefresh(filter, updateDoc) {
     try {
         const database = client.db('User');
         const collection = database.collection('userLogin');
+
         // update refresh token
         await collection.updateOne(filter, updateDoc);
     } catch (err) { console.log(err) }
@@ -118,33 +126,33 @@ export async function updateRefresh(filter, updateDoc) {
 
 export async function changeUser(filter, updateUser) {
     try {
-        const database = client.db('User');
-        const collection = database.collection('userInf');
-        // update and return new data
-        const updatedUser = await collection.findOneAndUpdate(filter, updateUser, { returnOriginal: false });
-        return updatedUser.value;
+      const database = client.db('User');
+      const collection = database.collection('userInf');
+      // update and return new data
+      const updatedUser = await collection.findOneAndUpdate(filter, updateUser, { returnOriginal: false });
+      return updatedUser.value;
     } catch (err) {
-        console.log(err)
+      console.log(err)
     }
-}
+  }
 
 
 
-export async function addNew(query, update, option) {
-    try {
+export async function addNew(query,update,option){
+    try{
         const database = client.db('User');
         const collection = database.collection('userLogin');
         await collection.updateOne(query, update, option);
-    } catch (err) {
+    }catch (err){
         console.log(err)
     }
 }
-export async function addNewSecond(query, update, option) {
-    try {
+export async function addNewSecond(query,update,option){
+    try{
         const database = client.db('User');
         const collection = database.collection('userInf');
         await collection.updateOne(query, update, option);
-    } catch (err) {
+    }catch (err){
         console.log(err)
     }
 }

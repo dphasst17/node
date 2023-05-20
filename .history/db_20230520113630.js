@@ -19,7 +19,7 @@ async function run() {
         console.error(err);
     }
 }
-run().catch(err => console.log(err));
+run();
 
 
 export async function changeDataLogin() {
@@ -46,7 +46,7 @@ export async function changeDataLogin() {
 
     return { result, resultUs, length };
 }
-changeDataLogin().catch(err => console.log(err));
+changeDataLogin();
 
 export { result, resultUs, length };
 
@@ -72,7 +72,7 @@ export async function newData() {
     }
     return { dataUs };
 }
-await newData().catch(err => console.log(err));
+await newData();
 export { dataUs };
 
 

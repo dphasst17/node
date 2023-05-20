@@ -1,9 +1,8 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import cors from "cors"
 import crypto from "crypto";
-import {resultUs,changeUser,result,length,addNew,addNewSecond,updateRefresh,insertData} from "./db.js";
+import {changeUser,result,length,addNew,addNewSecond,updateRefresh,insertData,dataUs} from "./db.js";
 
 
 dotenv.config();
@@ -11,38 +10,42 @@ const app = express();
 const PORT = 5500;
 const randomString = crypto.randomBytes(64).toString("hex");
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,authorization");
+  next();
+});
 
 
 //Tra ket qua nguoi dung nao dang dang nhap
 
 app.get("/requser", authenticationToken, (req, res) => {
   const userId = req.userId;
-  const user = resultUs.find((user) => user.id === userId);
+  const user = dataUs.find((user) => user.id === userId);
   res.json({ status: "Success", dataUser: user });
   });
 
 
 // Cap nhat thong tin nguoi dung
 
-app.post("/changeuser",authenticationToken,(req,res) =>{
+app.post("/changeuser", authenticationToken, (req, res) => {
   const userId = req.userId;
   const data = req.body;
-
-  const filter={
-    id:userId
-  } 
-  const updateUser = {$set:data}
-  let newUS;
-  changeUser(filter,updateUser)
-  .then(() => {return })
-  .then(() => {
-    res.status(200).send('Update successful');
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).send('An error occurred');
-  });
+  const filter = {
+    id: userId
+  }
+  const updateUser = { $set: data }
+  changeUser(filter, updateUser)
+    .then(() => {
+      // Wait for a short time before returning the new data
+      setTimeout(() => {
+        res.status(200).json(dataUs.find((user) => user.id === userId))
+      }, 1000);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('An error occurred');
+    });
 })
 
 
@@ -93,13 +96,10 @@ app.post("/register", (req, res) => {
       purchaseOrder:[],listCart:[]
     };
     let query = {username:username, password:password};
-    /* let querySecond={fullName:""}; */
     let updateLogin = {$set: newUserLogin};
-    /* let updateUser = {$set: newUser}; */
     let options = {upsert: true};
-    addNew(query,updateLogin,options);
-    /* addNewSecond(querySecond,updateUser,options); */
-    insertData(newUser)
+    addNew(query,updateLogin,options).catch(err => console.log(err));
+    insertData(newUser).catch(err => console.log(err))
     
     const accessToken = jwt.sign(
       { id: length + 1},
@@ -142,8 +142,8 @@ app.post("/login", (req, res) => {
       let updateLogin = {$set: newUserLogin};
       let updateUser = {$set: newUser};
       let options = {upsert: true};
-      addNew(query,updateLogin,options);
-      addNewSecond(query,updateUser,options);
+      addNew(query,updateLogin,options).catch(err => console.log(err));
+      addNewSecond(query,updateUser,options).catch(err => console.log(err));
       user = newUserLogin;  
     }else{
       user = users
@@ -173,7 +173,7 @@ app.post("/login", (req, res) => {
       refreshToken: refreshToken,
     },
   };
-  updateRefresh(filter,updateDoc)
+  updateRefresh(filter,updateDoc).catch(err => console.log(err))
 
 });
 
