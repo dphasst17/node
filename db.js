@@ -35,10 +35,9 @@ export async function changeDataLogin() {
         let query = {};
         await update(query)
         const changeStream = collection.watch();
-        changeStream.on('change', async () => {
-            await update(query)
+        changeStream.on('change',  () => {
+            update(query).catch(err => console.log(err))
         });
-
     } catch (err) {
         console.error(err);
     }
@@ -63,7 +62,7 @@ export async function newData() {
         await update(query)
         const changeStream = collection.watch();
         changeStream.on('change', async () => {
-            await update(query)
+            update(query).catch(err => console.log(err))
             return dataUs;
         });
     } catch (err) {
