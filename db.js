@@ -61,7 +61,7 @@ export async function newData() {
         let query = {};
         await update(query)
         const changeStream = collection.watch();
-        changeStream.on('change', async () => {
+        changeStream.on('change', () => {
             update(query).catch(err => console.log(err))
             return dataUs;
         });
