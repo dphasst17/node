@@ -11,6 +11,7 @@ let resultUs;
 let length;
 let dataUs;
 
+
 async function run() {
     try {
         await client.connect();
@@ -23,21 +24,19 @@ run().catch(err => console.log(err));
 
 
 export async function changeDataLogin() {
+    const update = async (e) => {
+        result = await getDataLogin(e);
+        resultUs = await getData(e);
+        length = result.length;
+    }
     try {
         const database = client.db('User');
         const collection = database.collection('userLogin');
         let query = {};
-        // Lấy kết quả của hàm getDataLogin khi khởi động server
-        result = await getDataLogin(query);
-        resultUs = await getData(query);
-        length = result.length;
-        // Sử dụng phương thức watch để theo dõi thay đổi trong bộ sưu tập
+        await update(query)
         const changeStream = collection.watch();
-        changeStream.on('change', async (change) => {
-            // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
-            result = await getDataLogin(query);
-            resultUs = await getData(query);
-            length = result.length;
+        changeStream.on('change', async () => {
+            await update(query)
         });
 
     } catch (err) {
@@ -54,17 +53,17 @@ export { result, resultUs, length };
 
 
 export async function newData() {
+    const update = async(e) => {
+        dataUs = await getData(e);
+    }
     try {
         const database = client.db('User');
         const collection = database.collection('userInf');
         let query = {};
-        // Lấy kết quả của hàm getDataLogin khi khởi động server
-        dataUs = await getData(query);
-        // Sử dụng phương thức watch để theo dõi thay đổi trong bộ sưu tập
+        await update(query)
         const changeStream = collection.watch();
-        changeStream.on('change', async (change) => {
-            // Cập nhật kết quả của hàm getDataLogin khi có thay đổi xảy ra
-            dataUs = await getData(query);
+        changeStream.on('change', async () => {
+            await update(query)
             return dataUs;
         });
     } catch (err) {
@@ -88,28 +87,15 @@ export async function getDataLogin(query) {
     try {
         const database = client.db('User');
         const collection = database.collection('userLogin');
-
         const data = await collection.find(query).toArray();
         return data;
     } catch (err) { console.log(err) }
 };
 
-
-export async function updateData(filter, updateDoc) {
-    try {
-        const database = client.db('User');
-        const collection = database.collection('userInf');
-        // update data or add new user
-        await collection.updateOne(filter, updateDoc);
-    } catch (err) { console.log(err) }
-}
-
-
 export async function updateRefresh(filter, updateDoc) {
     try {
         const database = client.db('User');
         const collection = database.collection('userLogin');
-        // update refresh token
         await collection.updateOne(filter, updateDoc);
     } catch (err) { console.log(err) }
 }
@@ -120,7 +106,6 @@ export async function changeUser(filter, updateUser) {
     try {
         const database = client.db('User');
         const collection = database.collection('userInf');
-        // update and return new data
         const updatedUser = await collection.findOneAndUpdate(filter, updateUser, { returnOriginal: false });
         return updatedUser.value;
     } catch (err) {
@@ -134,7 +119,7 @@ export async function addNew(query, update, option) {
     try {
         const database = client.db('User');
         const collection = database.collection('userLogin');
-        await collection.updateOne(query, update, option);
+        await collection.findOneAndUpdate(query, update, option);
     } catch (err) {
         console.log(err)
     }
