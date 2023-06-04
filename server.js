@@ -160,13 +160,14 @@ app.post("/login", (req, res) => {
       expiresIn: "600s",
     }
   );
+  const { exp: expirationTime } = jwt.decode(accessToken);
   const refreshToken = jwt.sign(
     { token: randomString },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: "5d" }
   );
 
-  res.status(200).json({ accessToken, refreshToken });
+  res.status(200).json({ accessToken, refreshToken,expirationTime});
   const filter = {id:user.id};
   const updateDoc = {
     $set: {
@@ -193,7 +194,8 @@ app.post("/refresh", (req, res) => {
         expiresIn: "600s",
       }
     );
-    res.json({ newAccessToken });
+    const { exp: expirationTime } = jwt.decode(newAccessToken);
+    res.json({ newAccessToken, expirationTime});
   } else {
     res.status(401).json({ message: "Invalid refresh token" });
   }
@@ -210,9 +212,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`SERVER is running on PORT ${PORT}`);
 });
-
-
-
-
-
-
